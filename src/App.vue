@@ -1,28 +1,43 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <VendingMachineAdmin />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import VendingMachineAdmin from "./components/VendingMachineAdmin";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    VendingMachineAdmin
   }
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap");
+body {
+  background: #333;
+  font-family: "Gothic A1", sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+.service-btn {
+  width: 100px;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+  background: #ffb232;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 30px;
 }
 </style>
