@@ -4,7 +4,7 @@
       <h3>Operator</h3>
       <p>Scruffy</p>
       <h3>Primary Machine</h3>
-      <p>Wash Bucket</p>
+      <p>{{ primaryMachine }}</p>
       <span>Times serviced in last week: {{ timesServiced }}</span>
     </div>
     <button class="service-btn" @click="serviceMachine">Service</button>
@@ -12,16 +12,22 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import machineModule from "../store/modules/machine";
 
 export default {
   name: "VendingMachineUserView",
+  props: {
+    primaryMachine: String
+  },
   computed: {
-    ...mapState("machine", ["timesServiced"])
+    timesServiced() {
+      return this.$store.state[this.machineId].timesServiced;
+    }
   },
   methods: {
-    ...mapActions("machine", ["serviceMachine"]),
+    serviceMachine() {
+      this.$store.dispatch(`${this.machineId}/serviceMachine`);
+    },
     registerStoreModule(moduleName, storeModule) {
       const store = this.$store;
       if (!(store && store.state && store.state[moduleName])) {
@@ -30,7 +36,11 @@ export default {
     }
   },
   created() {
-    this.registerStoreModule("machine", machineModule);
+    this.machineId = this.primaryMachine.replace(" ", "").toLowerCase();
+    this.registerStoreModule(`${this.machineId}`, machineModule);
+  },
+  beforeDestroy() {
+    this.$store.unregisterModule(`${this.machineId}`);
   }
 };
 </script>

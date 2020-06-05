@@ -7,7 +7,7 @@
       </div>
     </section>
     <section class="action-section">
-      <OperatorView />
+      <OperatorView :primaryMachine="primaryMachine" />
     </section>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
   },
   data() {
     return {
+      primaryMachine: "Wash Bucket",
       machines: [
         {
           name: "Leela",
