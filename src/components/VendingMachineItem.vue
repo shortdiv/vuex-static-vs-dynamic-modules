@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
 import machineModule from "../store/modules/machine";
 
 export default {
@@ -28,12 +27,14 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      timesServiced: state => state.machine.timesServiced
-    })
+    timesServiced() {
+      return this.$store.state[this.machineId].timesServiced;
+    }
   },
   methods: {
-    ...mapActions("machine", ["serviceMachine"]),
+    serviceMachine() {
+      this.$store.dispatch(`${this.machineId}/serviceMachine`);
+    },
     registerStoreModule(moduleName, storeModule) {
       const store = this.$store;
       if (!(store && store.state && store.state[moduleName])) {
@@ -42,7 +43,11 @@ export default {
     }
   },
   created() {
-    this.registerStoreModule("machine", machineModule);
+    this.machineId = this.machine.name.replace(" ", "").toLowerCase();
+    this.registerStoreModule(`${this.machineId}`, machineModule);
+  },
+  beforeDestroy() {
+    this.$store.unregisterModule(`${this.machineId}`);
   }
 };
 </script>
