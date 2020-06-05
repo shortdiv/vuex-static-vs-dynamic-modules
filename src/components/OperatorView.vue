@@ -13,6 +13,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import machineModule from "../store/modules/machine";
 
 export default {
   name: "VendingMachineUserView",
@@ -20,7 +21,16 @@ export default {
     ...mapState("machine", ["timesServiced"])
   },
   methods: {
-    ...mapActions("machine", ["serviceMachine"])
+    ...mapActions("machine", ["serviceMachine"]),
+    registerStoreModule(moduleName, storeModule) {
+      const store = this.$store;
+      if (!(store && store.state && store.state[moduleName])) {
+        store.registerModule(moduleName, storeModule);
+      }
+    }
+  },
+  created() {
+    this.registerStoreModule("machine", machineModule);
   }
 };
 </script>

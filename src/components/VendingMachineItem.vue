@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+// import { mapActions, mapState } from "vuex";
 
 export default {
   name: "VendingMachineItem",
@@ -23,16 +23,20 @@ export default {
   },
   data() {
     return {
-      machineId: null
+      machineId: null,
+      timesServiced: 0
     };
   },
   computed: {
-    ...mapState({
-      timesServiced: state => state.machine.timesServiced
-    })
+    // ...mapState({
+    //   timesServiced: state => state.machine.timesServiced
+    // })
   },
   methods: {
-    ...mapActions("machine", ["serviceMachine"])
+    serviceMachine() {
+      console.log("servicing");
+    }
+    // ...mapActions("machine", ["serviceMachine"])
   }
 };
 </script>
