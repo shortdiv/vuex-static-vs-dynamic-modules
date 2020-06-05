@@ -15,6 +15,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import machineModule from "../store/modules/machine";
 
 export default {
   name: "VendingMachineItem",
@@ -32,7 +33,16 @@ export default {
     })
   },
   methods: {
-    ...mapActions("machine", ["serviceMachine"])
+    ...mapActions("machine", ["serviceMachine"]),
+    registerStoreModule(moduleName, storeModule) {
+      const store = this.$store;
+      if (!(store && store.state && store.state[moduleName])) {
+        store.registerModule(moduleName, storeModule);
+      }
+    }
+  },
+  created() {
+    this.registerStoreModule("machine", machineModule);
   }
 };
 </script>
